@@ -1,38 +1,95 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dog Search App
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+Dog Search App is a web application built with Next.js, React, TypeScript, and Redux. The app allows users to login by providing their name and email. Once authenticated, they can browse available dogs, filter by breed, and paginate through the results. Users can also select their favorite dogs and generate a match using the /dogs/match endpoint. This app showcases your creativity and strengths while utilizing a component library.
+
+## Demo
+
+Link to the live demo or a video showcasing the Dog Search App.
+
+## Features
+
+- **Login Screen:** Users can enter their name and email on the login screen.
+
+- **Authentication:** The provided information is used to authenticate with the backend service's login endpoint.
+
+- **Dog Search Page:** Authenticated users are directed to a search page where they can browse available dogs.
+
+  - **Filtering:** Users can filter dogs by breed.
+
+  - **Pagination:** Results are paginated for easy navigation.
+
+  - **Sorting:** Results are sorted alphabetically by breed by default. Users can modify the sort order to be ascending or descending.
+
+  - **Dog Details:** All fields of the Dog object (except for id) are presented.
+
+  - **Favorite Dogs:** Users can select their favorite dogs from the search results.
+
+- **Generate Match:** Users can generate a match by using the /dogs/match endpoint. The match will be a single dog, and the app displays it creatively.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+Make sure you have Node.js installed on your local machine.
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/dog-search-app.git
+cd dog-search-app
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up environment variables:
+
+Create a `.env.local` file in the root directory and add the required environment variables:
+
+```plaintext
+NEXT_PUBLIC_API_BASE_URL=https://api.example.com   # Replace with your backend API base URL
+```
+
+### Usage
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and navigate to `http://localhost:3000` to access the app.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Built With
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Next.js - The React framework for server-side rendering and static site generation.
+- React - JavaScript library for building user interfaces.
+- TypeScript - Typed superset of JavaScript.
+- Redux - State management library for managing application state.
+- [Component Library Name] - Component library used for UI elements (if applicable). Replace with the name of the component library you are using.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## API Reference
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+If your project uses APIs, provide documentation or examples on how to interact with them.
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Explain how others can contribute to your project. Include guidelines for code formatting, pull requests, etc.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute it as per the terms of the license.
 
-## Deploy on Vercel
+## Acknowledgments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Mention any contributors, third-party libraries, or resources that inspired or helped you during the development of this project.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Remember to replace the placeholders `[Your Name]`, `[Your Username]`, `[Your Project URL]`, and other sections with the appropriate information specific to your Dog Search App project. Customize the headings and content according to your project's needs. Once you've filled in the details, your README.md file will be ready to provide valuable information about your Dog Search App to others.
