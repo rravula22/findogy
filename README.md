@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Dog Search App is a web application built with Next.js, React, TypeScript, and Redux. The app allows users to login by providing their name and email. Once authenticated, they can browse available dogs, filter by breed, and paginate through the results. Users can also select their favorite dogs and generate a match using the /dogs/match endpoint. This app showcases your creativity and strengths while utilizing a component library.
+Dog Search App is a web application built with Next.js, React, TypeScript, and Redux. The app allows users to login by providing their name and email. Once authenticated, they can browse available dogs, filter by breed, and paginate through the results. Users can also select their favorite dogs and generate a match using the /dogs/match endpoint.
 
 ## Demo
 
