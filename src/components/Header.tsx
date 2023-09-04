@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React from 'react'
 
 type Props = {}
 
@@ -11,6 +10,11 @@ export default function Header() {
                     <img src="/fetch.png" alt="Logo" className="w-10 h-10" />
                     <span className="text-xl font-bold">Fetch</span>
                 </Link>
+            </div>
+            <div className="flex flex-grow-0 flex-shrink-0 items-center mx-20">
+                <h1 className="text-6xl font-bold">
+                    Welcome to <a className="text-blue-600">Dog Search</a>
+                </h1>
             </div>
             <div className="flex flex-grow-0 flex-shrink-0 items-center mx-20">
                 <Link href="/Login">

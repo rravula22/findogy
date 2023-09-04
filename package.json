@@ -14,11 +14,14 @@
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
+    "csv-parser": "^3.0.0",
+    "fs": "^0.0.1-security",
     "next": "13.4.12",
     "postcss": "8.4.27",
     "react": "18.2.0",
+    "react-data-table-component": "^7.5.4",
     "react-dom": "18.2.0",
-    "react-redux": "^8.1.1",
+    "react-tailwindcss-select": "^1.8.5",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
   }
