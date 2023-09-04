@@ -8,6 +8,7 @@ const Login = () => {
   const router = useRouter();
 
   useEffect(() => {
+
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);

@@ -7,13 +7,11 @@ import useFetchDogs from '@/components/custom_hooks/useDogs';
 import { useEffect, useState } from 'react';
 import { SelectValue } from 'react-tailwindcss-select/dist/components/type';
 import 'react-tailwindcss-select/dist/index.css';
-interface Props {}
 
-function DogSearchPage({}: Props) {
+function DogSearchPage() {
   const {breeds, setBreedsList} = useBreeds();
   const [selectedBreeds, setSelectedBreeds] = useState<SelectValue>([]);
   const [selectedZipCodes, setSelectedZipCodes] = useState<SelectValue>([]);
-  const [dogName, setDogName] = useState('');
   const [ageMin, setAgeMin] = useState('0');
   const [ageMax, setAgeMax] = useState('25');
   const { dogs, loading, error, fetchData } = useFetchDogs(selectedBreeds, selectedZipCodes, ageMax, ageMin);
@@ -27,9 +25,9 @@ function DogSearchPage({}: Props) {
     setSelectedBreeds(selected);
   };
 
-  const handleDogNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDogName(event.target.value);
-  };
+  // const handleDogNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setDogName(event.target.value);
+  // };
   const handleZipcodeChange = (selected: SelectValue) => {
     setSelectedZipCodes(selected);
   };
