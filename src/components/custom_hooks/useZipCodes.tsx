@@ -4,6 +4,7 @@ const myURL = new URL(path);
 function useZipcode() {
     const [zipCodes, setZipCodes] = useState([]);
     useEffect(() => {
+        console.log("inside zip use")
         if(localStorage.getItem("zipcodes") === null || localStorage.getItem("zipcodes") === undefined) {
             fetch(myURL.href, {
                 method: 'GET',

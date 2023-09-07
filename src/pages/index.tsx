@@ -1,16 +1,14 @@
-import Header from '../components/Header'
-import Login from '../components/Login'
-import React from 'react'
-
+import Header from '../components/Header';
+import { useAuth } from './AuthContext';
+import Dashboard from './dashboard';
+import Login from './login';
 export default function Home() {
-  return (
-    <div className="bg-[rgb(22,22,21)] text-white h-screen snap-y snap-mandatory overflow-scroll z-0
-    scrollbar-thin scrollbar-track-gray/20 scrollbar-thumb-[#F7AB0A]/80">
+  const { user } = useAuth();
+  return (<>
       <Header />
-      {/* 
-        if authenticated go to dashboard page
-       */}
-      <Login />
-    </div>
+      {
+        user ? <Dashboard /> : <Login />
+      }
+    </>
   )
 }

@@ -4,7 +4,7 @@ type Props = {}
 
 export default function Header() {
     return (
-        <header className="sticky text-white bg-black top-0 p-5 flex items-start justify-between max-w-full mx-auto z-20 xl:items-center">
+        <header className="sticky text-white bg-black top-0 p-5 flex items-center justify-between max-w-full mx-auto z-20 xl:items-center">
             <div className="flex flex-grow-0 flex-shrink-0 items-center mx-20">
                 <Link href="/">
                     <img src="/fetch.png" alt="Logo" className="w-10 h-10" />
@@ -12,17 +12,20 @@ export default function Header() {
                 </Link>
             </div>
             <div className="flex flex-grow-0 flex-shrink-0 items-center mx-20">
-                <h1 className="text-6xl font-bold">
+                <h1 className="text-4xl font-bold">
                     Welcome to <a className="text-blue-600">Dog Search</a>
                 </h1>
             </div>
             <div className="flex flex-grow-0 flex-shrink-0 items-center mx-20">
-                <Link href="/Login">
-                    <span className="mr-2 text-xl font-bold ">Login</span>
-                </Link>
-                <Link href="/Login">
-                    <span className="ml-2 text-xl font-bold">LogOut</span>
-                </Link>
+                {/* {token ? (
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>removeUserStatus()}>
+                        <Link href="/logout">Logout</Link>
+                    </button>
+                ) : (
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <Link href="/login">Login</Link>
+                    </button>
+                )} */}
             </div>
         </header>
     )

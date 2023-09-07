@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useAuth } from "../pages/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
+  const { login } = useAuth();
   useEffect(() => {
-
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
@@ -31,9 +31,9 @@ const Login = () => {
     })
     .then(response => {
       if (response.status === 200 && response.ok) {
-        router.push("/dashboard")
+        login({ name, email });
       } else {
-        window.alert("Error with authentication request");
+        window.alert("Unable to login Please check your credentials");
         router.push("/login")
         throw new Error(`Request failed with status ${response.status}`);
       }

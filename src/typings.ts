@@ -21,9 +21,10 @@ interface SearchOptions {
     zipcodes?: string[];
     ageMin?: string;
     ageMax?: string;
-    size?: number;
+    size?: string;
     from?: string;
     sort?: string;
+    [key: string]: any;
 }
 
 interface DogIdList {
@@ -33,6 +34,16 @@ interface DogIdList {
     prev?: string;
 }
 
+interface MatchedData {
+    match: string;
+}
 
-export type { Dog, DogIdList, Location, SearchOptions }
+  
+interface MatchPopupProps {
+    matchedDog: Dog | null;
+    onClose: () => void;
+}
+
+
+export type { Dog, DogIdList, Location, MatchPopupProps, MatchedData, SearchOptions }
 
