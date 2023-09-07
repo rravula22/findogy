@@ -1,7 +1,10 @@
+import { signOut } from 'next-auth/react';
 import { Dog, MatchedData, SearchOptions } from '../typings';
 
 const fetchDogs = (options?: SearchOptions): Promise<[]> => {
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/dogs/search${buildQueryString(options)}`, {
+  const query = buildQueryString(options);
+
+    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/dogs/search`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -9,8 +12,9 @@ const fetchDogs = (options?: SearchOptions): Promise<[]> => {
       },
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+        if (!response.ok && response.status !== 404 ) {
+          signOut({ callbackUrl: '/'});
+          throw new Error('Not Authorized');
         }
         return response.json();
       })
@@ -34,7 +38,8 @@ const fetchDogsById = (ids: string[]): Promise<Dog[]> => {
     })
     .then((response) => {
     if (!response.ok) {
-        throw new Error('Network response was not ok');
+      signOut({ callbackUrl: '/'});
+      throw new Error('Network response was not ok');
     }
     return response.json();
     })
@@ -74,17 +79,19 @@ const fetchMatchedDog = (ids: string[]): Promise<MatchedData> => {
   });
 };
 function buildQueryString(options?: SearchOptions): string {
+  const breeds = options?.breeds || [];
+  const zipCodes = options?.zipCodes || [];
+  const queryParams = new URLSearchParams({
+    breeds: breeds.join(","),
+    zipCodes: zipCodes.join(","),
+    
+  });
   if(!options) {
     return '';
   }
   const query = Object.keys(options).map((key) => {
-    if(key === 'breeds' || key === 'zipCodes') {
-      if(options[key]?.length) {
-        return `${key}=${options[key]?.join(',')}`;
-      }
-      return '';
-    }
     return `${key}=${options[key]}`;
+
   });
   return query.length ? `?${query.join('&')}` : '';
 }

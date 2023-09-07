@@ -1,8 +1,10 @@
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 type Props = {}
 
 export default function Header() {
+    const { data: session, status } = useSession();
     return (
         <header className="sticky text-white bg-black top-0 p-5 flex items-center justify-between max-w-full mx-auto z-20 xl:items-center">
             <div className="flex flex-grow-0 flex-shrink-0 items-center mx-20">
@@ -17,15 +19,17 @@ export default function Header() {
                 </h1>
             </div>
             <div className="flex flex-grow-0 flex-shrink-0 items-center mx-20">
-                {/* {token ? (
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>removeUserStatus()}>
-                        <Link href="/logout">Logout</Link>
-                    </button>
-                ) : (
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        <Link href="/login">Login</Link>
-                    </button>
-                )} */}
+                {
+                    session ? (
+                        <button onClick={()=>{signOut();}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <Link href="/login">LogOut</Link>
+                        </button>
+                    ) : (
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <Link href="/login">Login</Link>
+                        </button>
+                    )
+                }
             </div>
         </header>
     )
