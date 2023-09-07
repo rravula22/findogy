@@ -84,7 +84,7 @@ function buildQueryString(options?: SearchOptions): string {
   const queryParams = new URLSearchParams({
     breeds: breeds.join(","),
     zipCodes: zipCodes.join(","),
-    
+
   });
   if(!options) {
     return '';

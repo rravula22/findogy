@@ -23,7 +23,5 @@ export default NextAuth({
   session: {
     maxAge: 24 * 60 * 60, // 24 hours
   },
-  callbacks: {
-  
-  }
+  secret: 'A33D2F3C-4B1C-4F1A-8F6C-5F6E3C2B1A0D'
 });
