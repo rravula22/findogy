@@ -2,9 +2,9 @@ import { signOut } from 'next-auth/react';
 import { Dog, MatchedData, SearchOptions } from '../typings';
 
 const fetchDogs = (options?: SearchOptions): Promise<[]> => {
-  const query = buildQueryString(options);
+    const queryString = buildQueryString(options);
 
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/dogs/search`, {
+    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/dogs/search/${queryString}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -79,21 +79,45 @@ const fetchMatchedDog = (ids: string[]): Promise<MatchedData> => {
   });
 };
 function buildQueryString(options?: SearchOptions): string {
-  const breeds = options?.breeds || [];
-  const zipCodes = options?.zipCodes || [];
-  const queryParams = new URLSearchParams({
-    breeds: breeds.join(","),
-    zipCodes: zipCodes.join(","),
+    /**GET /dogs/search
+Query Parameters
+The following query parameters can be supplied to filter the search results. All are optional; if none are provided, the search will match all dogs.
 
-  });
-  if(!options) {
-    return '';
-  }
-  const query = Object.keys(options).map((key) => {
-    return `${key}=${options[key]}`;
+breeds - an array of breeds
+zipCodes - an array of zip codes
+ageMin - a minimum age
+ageMax - a maximum age
+Additionally, the following query parameters can be used to configure the search:
 
-  });
-  return query.length ? `?${query.join('&')}` : '';
+size - the number of results to return; defaults to 25 if omitted
+from - a cursor to be used when paginating results (optional)
+sort - the field by which to sort results, and the direction of the sort; in the format sort=field:[asc|desc] */
+    let queryString = '?';
+    if (options) {
+      const { breeds, zipCodes, ageMin, ageMax, size, from, sort } = options;
+      if (breeds && breeds.length > 0) {
+        queryString += `breeds=${breeds.join(',')}&`;
+      }
+      if (zipCodes && zipCodes.length > 0) {
+        queryString += `zipCodes=${zipCodes.join(',')}&`;
+      }
+      if (ageMin) {
+        queryString += `ageMin=${ageMin}&`;
+      }
+      if (ageMax) {
+        queryString += `ageMax=${ageMax}&`;
+      }
+      if (size) {
+        queryString += `size=${size}&`;
+      }
+      if (from) {
+        queryString += `from=${from}&`;
+      }
+      if (sort) {
+        queryString += `sort=${sort}&`;
+      }
+    }
+    return queryString;
 }
 
 export { fetchDogs, fetchDogsById, fetchMatchedDog };
