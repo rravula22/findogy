@@ -1,8 +1,8 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Dashboard from "./Dashboard";
 import Header from "./Header";
-import Dashboard from "./dashboard";
 
 const Login = () => {
   const { data: session, status } = useSession();
