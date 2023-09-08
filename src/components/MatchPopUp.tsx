@@ -4,7 +4,7 @@ import React from 'react';
 const MatchPopup: React.FC<MatchPopupProps> = ({ matchedDog, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-        <div className="bg-white p-8 rounded-lg shadow-md w-11/12 h-70vh max-w-xl">
+        <div className="bg-red-300 p-8 rounded-lg shadow-md w-11/12 h-70vh max-w-xl">
             <button
                 className="top-2 right-2 text-gray-500 hover:text-red-500"
                 onClick={onClose}
@@ -28,16 +28,16 @@ const MatchPopup: React.FC<MatchPopupProps> = ({ matchedDog, onClose }) => {
              */}
 
             {matchedDog?.age ? (
-            <div className='bg-white p-4 rounded-lg shadow-md max-w-md mx-auto'>
-                <h1 className="text-3xl font-semibold mb-4">You matched with {matchedDog.name}!</h1>
-                <img
-                    src={matchedDog.img} 
-                    alt={matchedDog.name}
-                    className="rounded-lg max-h-60 w-auto mx-auto mb-4"
-                />
-                <h2 className="text-2xl font-semibold mb-2">{matchedDog.name}</h2>
-                <p className="text-gray-700">{matchedDog.breed}</p>
-            </div>
+                <div className='bg-transparent p-4 rounded-lg shadow-md max-w-md mx-auto'>
+                    <div className="animate-flowers text-black mb-4 text-2xl">🌼🌸🌺 Hurray! You got a match! 🌺🌸🌼</div>
+                    <img
+                        src={matchedDog.img} 
+                        alt={matchedDog.name}
+                        className="rounded-lg max-h-60 w-auto mx-auto mb-4"
+                    />
+                    <h2 className="text-2xl font-semibold mb-2">{matchedDog.name}</h2>
+                    <p className="text-gray-700">{matchedDog.breed}</p>
+                </div>
             ) : (
             <p className="text-gray-700 text-center">No matched dogs found.</p>
             )}

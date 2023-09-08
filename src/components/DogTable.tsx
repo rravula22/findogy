@@ -1,19 +1,42 @@
 import { Dog } from "@/typings";
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DataTable, { TableColumn, createTheme } from "react-data-table-component";
 
 interface CustomDataTableProps {
   dogs: Dog[];
   toggleFavorite: (dog: Dog) => void;
   selectedDogs: Dog[];
+  page: number;
+  totalPage: number;
+  handlePageChange: (page: number) => void;
 }
 
-export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs }: CustomDataTableProps) {
+export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, page, totalPage, handlePageChange }: CustomDataTableProps) {
 
   const columns: TableColumn<Dog>[] = [
     {
       name: "Name",
       sortField: "name",
       selector: (row) => row.name,
+      wrap: false,
+      cell: (row) => (
+        <div className="flex items-center justify-center group relative">
+          <img
+            src={row.img}
+            alt={row.name}
+            className="rounded-full h-10 w-10 transition-transform transform group-hover:scale-110 opacity-100 group-hover:opacity-75"
+          />
+          <div className="absolute top-0 lg:left-20 md:left-0 sm:left-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <img
+              src={row.img}
+              alt={row.name}
+              className="rounded-full h-20 w-20 transition-transform transform group-hover:scale-110"
+            />
+          </div>
+          {row.name}
+        </div>
+      ),
       sortable: true,
     },
     {
@@ -37,24 +60,29 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs }: 
     {
       name: "Favorite",
       cell: (row) => (
-        <div className="flex items-center justify-center">
-          <input
-            type="checkbox"
-            checked={selectedDogs.includes(row)}
-            onChange={() => toggleFavorite(row)}
-            className="form-checkbox text-blue-500 rounded-lg h-6 w-6"
+          <FontAwesomeIcon
+            icon={faHeart}
+            onClick={() => toggleFavorite(row)}
+            style={{
+              cursor: 'pointer',
+              fontSize: '24px',
+              color: selectedDogs.includes(row) ? 'red' : 'grey',
+              transition: 'transform 0.2s', // Add a transition for smooth scaling
+            }}
+            className={`transform scale-100 group-hover:scale-110`}
           />
-        </div>
       ),
-    },
+    }
+    
   ];
   createTheme('solarized', {
     text: {
-      primary: '#268bd2',
-      secondary: '#2aa198',
+      primary: '#073642',
+      secondary: 'white',
+      hover: 'white',
     },
     background: {
-      default: '#002b36',
+      default: '#dad5c2',
     },
     context: {
       background: '#cb4b16',
@@ -70,38 +98,55 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs }: 
     },
   }, 'dark');
 
+  const customStyles = {
+    	headRow: {
+    		style: {
+    			border: 'none',
+    		},
+    	},
+    	headCells: {
+    		style: {
+    			color: '#202124',
+    			fontSize: '14px',
+    		},
+    	},
+    	rows: {
+    		highlightOnHoverStyle: {
+    			borderBottomColor: '#FFFFFF',
+    			borderRadius: '25px',
+    			outline: '1px solid #FFFFFF',
+          outlineOffset: '-1px',
+    		},
+    	},
+    	pagination: {
+    		style: {
+    			border: 'none',
+  		},
+    	},
+          
+    };
+
   return (
     <DataTable
       title="Dogs"
       columns={columns}
       data={dogs}
-      pagination={true}
-      responsive={true}
-      paginationPerPage={10}
-      paginationRowsPerPageOptions={[10, 25, 50, 100]}
-      paginationComponentOptions={{
-        rowsPerPageText: "Rows per page:",
-        rangeSeparatorText: "of",
-        noRowsPerPage: false,
-        selectAllRowsItem: false,
-        selectAllRowsItemText: "All",
-      }}
+      responsive
+      pagination
+      paginationServer
+      paginationTotalRows={totalPage * 15} // Adjust the page size as needed
+      onChangePage={handlePageChange}
       fixedHeader={true}
       theme="solarized"
       fixedHeaderScrollHeight="600px"
       highlightOnHover={true}
       pointerOnHover={true}
       selectableRowsHighlight={true}
-      noHeader={true} // Hide the table header for a cleaner look
-        striped={true} // Add striped rows
-        dense={true} // Increase row density
-        customStyles={{
-          rows: {
-            style: {
-              minHeight: "50px", // Customize row height
-            },
-          },
-        }}
+      noHeader={true}
+      striped={true}
+      dense={true}
+      customStyles={customStyles}
     />
+    
   );
 }

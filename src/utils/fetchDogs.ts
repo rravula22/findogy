@@ -79,33 +79,15 @@ const fetchMatchedDog = (ids: string[]): Promise<MatchedData> => {
   });
 };
 function buildQueryString(options?: SearchOptions): string {
-    /**GET /dogs/search
-Query Parameters
-The following query parameters can be supplied to filter the search results. All are optional; if none are provided, the search will match all dogs.
 
-breeds - an array of breeds
-zipCodes - an array of zip codes
-ageMin - a minimum age
-ageMax - a maximum age
-Additionally, the following query parameters can be used to configure the search:
-
-size - the number of results to return; defaults to 25 if omitted
-from - a cursor to be used when paginating results (optional)
-sort - the field by which to sort results, and the direction of the sort; in the format sort=field:[asc|desc] */
     let queryString = '?';
     if (options) {
       const { breeds, zipCodes, ageMin, ageMax, size, from, sort } = options;
       if (breeds && breeds.length > 0) {
-        queryString += `breeds=${breeds.join(',')}&`;
+        queryString += `breeds=${ breeds.join(',')}&`;
       }
       if (zipCodes && zipCodes.length > 0) {
         queryString += `zipCodes=${zipCodes.join(',')}&`;
-      }
-      if (ageMin) {
-        queryString += `ageMin=${ageMin}&`;
-      }
-      if (ageMax) {
-        queryString += `ageMax=${ageMax}&`;
       }
       if (size) {
         queryString += `size=${size}&`;
@@ -115,6 +97,12 @@ sort - the field by which to sort results, and the direction of the sort; in the
       }
       if (sort) {
         queryString += `sort=${sort}&`;
+      }
+      if (ageMin) {
+        queryString += `ageMin=${ageMin}&`;
+      }
+      if (ageMax) {
+        queryString += `ageMax=${ageMax}`;
       }
     }
     return queryString;
