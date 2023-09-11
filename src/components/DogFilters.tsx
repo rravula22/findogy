@@ -27,6 +27,9 @@ function Filters({setDogs }: Props) {
   let states = stateList();
   const breedList = useBreeds();
   useEffect(() => {
+    handleDogFilterChange();
+  }, []);
+  useEffect(() => {
     fetchLocationByZipcodes(zipCodes)
     .then((res: any) => {
       setZipCodeData(res);

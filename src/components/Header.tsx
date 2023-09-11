@@ -1,3 +1,4 @@
+import { signOutUser } from '@/utils/service';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
@@ -22,6 +23,7 @@ export default function Header() {
             {session ? (
                 <button
                 onClick={() => {
+                    signOutUser();
                     signOut();
                 }}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

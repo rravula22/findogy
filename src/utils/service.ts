@@ -154,5 +154,21 @@ function buildQueryString(options?: SearchOptions): string {
     return queryString;
 }
 
-export { fetchDogs, fetchDogsById, fetchLocationByZipcodes, fetchLocations, fetchMatchedDog };
+function signOutUser(): Promise<boolean> {
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return true;
+  });
+}
+
+export { fetchDogs, fetchDogsById, fetchLocationByZipcodes, fetchLocations, fetchMatchedDog, signOutUser };
 
