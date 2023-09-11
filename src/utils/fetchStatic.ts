@@ -1,7 +1,3 @@
-const fetchBreeds = ()=> {
-    return localStorage.getItem('breeds') || '[]';
-}
-
 const fetchZipCodes = ()=> {
     if(localStorage.getItem('zipcodes')) {
         return localStorage.getItem('zipcodes') || '[]';
@@ -16,4 +12,5 @@ const fetchZipCodes = ()=> {
     .catch(err => console.log(err));
 }
 
-export { fetchBreeds, fetchZipCodes };
+export { fetchZipCodes };
+

@@ -1,8 +1,8 @@
+import { Breed } from '@/typings';
 import { useEffect, useState } from 'react';
-import { Options } from 'react-tailwindcss-select/dist/components/type';
 
 function useBreeds() {
-    const [breeds, setBreedsList] = useState<Options>([]);
+    const [breeds, setBreedsList] = useState<Breed[]>([]);
     useEffect(() => {
         if(localStorage && localStorage.getItem("breeds") === null || localStorage.getItem("breeds") === undefined) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}/dogs/breeds`, {
@@ -36,6 +36,6 @@ function useBreeds() {
     }, []);
 
 
-    return { breeds, setBreedsList };
+    return breeds;
 }
 export default useBreeds;

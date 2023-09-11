@@ -33,7 +33,6 @@ const Zipcodes = ({ selectedZipCodes, handleZipcodeChange }: Props) => {
             isMultiple={true}
             onSearchInputChange={handleZipcodes}
             searchInputPlaceholder="Search for zipcodes"
-          
         />
     </div>
   );

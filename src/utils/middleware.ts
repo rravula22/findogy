@@ -1,17 +1,14 @@
-// export default async function sessionCheck() {
-//   const userStatus = localStorage.getItem('userStatus'); 
-//   // Check if userStatus is valid (you can define your own criteria)
-//   if (userStatus === 'active') {
-//     next(); // Continue processing the request
-//   } else {
-//     // UserStatus is not valid, handle accordingly (e.g., deny access or redirect)
-//     console.log('UserStatus is not valid. Denying access...');
-//     // Perform access denial or redirection logic here
-//     res.status(403).json({ error: 'Access denied' });
-//   }
-// }
+import { fetchDogs, fetchDogsById, fetchLocations } from './service';
+const fetchDogsByFilters: any = async (filters?: any, type?: string) => {
+    if(type === 'zipCodes'){
+        const locations = await fetchLocations(filters);
+        return locations;
+    } else {
+        const dogIds = await fetchDogs(filters || {});
+        const dogs = await fetchDogsById(dogIds);
+        return dogs;
+    }
+    
+};
 
-// // Other middleware functions can be defined here
-
-// }
-
+export { fetchDogsByFilters };

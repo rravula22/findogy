@@ -4,7 +4,7 @@ import React from 'react';
 const MatchPopup: React.FC<MatchPopupProps> = ({ matchedDog, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-        <div className="bg-red-300 p-8 rounded-lg shadow-md w-11/12 h-70vh max-w-xl">
+        <div className="bg-gray-100 p-8 rounded-lg shadow-md w-11/12 h-70vh max-w-xl">
             <button
                 className="top-2 right-2 text-gray-500 hover:text-red-500"
                 onClick={onClose}

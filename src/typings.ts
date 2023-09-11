@@ -1,3 +1,5 @@
+import { Option, SelectValue } from "react-tailwindcss-select/dist/components/type"
+
 interface Dog {
     id: string
     img: string
@@ -17,13 +19,14 @@ interface Location {
 }
 
 interface SearchOptions {
-    breeds?: string[];
+    breeds?: Option[];
     zipcodes?: string[];
     ageMin?: string;
     ageMax?: string;
     size?: string;
     from?: string;
     sort?: string;
+    states?: Option[];
     [key: string]: any;
 }
 
@@ -44,6 +47,34 @@ interface MatchPopupProps {
     onClose: () => void;
 }
 
+interface SearchResults {
+    results: Location[];
+    total: number;
+}
 
-export type { Dog, DogIdList, Location, MatchPopupProps, MatchedData, SearchOptions }
+interface Breed {
+    label: string;
+    value: string;
+  }
+  
+interface LocationFilters {
+    city: string;
+    states: SelectValue;
+}
+
+interface DogFilters {
+    breeds: SelectValue;
+    ageMin: number;
+    ageMax: number;
+}
+
+interface ZipCodeData {
+    city: string;
+    latitude: number;
+    longitude:  number;
+    county: string;
+    state: string;
+    zip_code: string;
+  }
+export type { Breed, Dog, DogFilters, DogIdList, Location, LocationFilters, MatchPopupProps, MatchedData, SearchOptions, SearchResults, ZipCodeData }
 

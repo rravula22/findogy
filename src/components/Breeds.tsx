@@ -9,9 +9,8 @@ type Props = {
 }
 
 export default ({breeds, selectedBreeds, handleChangeBreeds}: Props) => {
-  let isSelected: boolean = false;
     return (
-      <div className="shadow w-full appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <div className="shadow overflow-y-visible  w-full  appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         <Select
             primaryColor="blue"
             value={selectedBreeds}
@@ -20,6 +19,7 @@ export default ({breeds, selectedBreeds, handleChangeBreeds}: Props) => {
             isSearchable={true}
             isMultiple={true}
             searchInputPlaceholder="Search for breeds"
+            isClearable={true}
         />
       </div>
     );

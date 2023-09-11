@@ -10,10 +10,10 @@ interface CustomDataTableProps {
   page: number;
   totalPage: number;
   handlePageChange: (page: number) => void;
+  handlePageRowsChange: (page: number, totalRows: number) => void;
 }
 
-export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, page, totalPage, handlePageChange }: CustomDataTableProps) {
-
+export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, page, totalPage, handlePageChange, handlePageRowsChange }: CustomDataTableProps) {
   const columns: TableColumn<Dog>[] = [
     {
       name: "Name",
@@ -34,7 +34,7 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, pa
               className="rounded-full h-20 w-20 transition-transform transform group-hover:scale-110"
             />
           </div>
-          {row.name}
+          <p className="px-2">{row.name}</p>
         </div>
       ),
       sortable: true,
@@ -72,6 +72,7 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, pa
             className={`transform scale-100 group-hover:scale-110`}
           />
       ),
+      sortable: false,
     }
     
   ];
@@ -82,11 +83,7 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, pa
       hover: 'white',
     },
     background: {
-      default: '#dad5c2',
-    },
-    context: {
-      background: '#cb4b16',
-      text: '#FFFFFF',
+      default: 'inherit',
     },
     divider: {
       default: '#073642',
@@ -96,36 +93,52 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, pa
       hover: 'rgba(0,0,0,.08)',
       disabled: 'rgba(0,0,0,.12)',
     },
-  }, 'dark');
-
+  }, 'light');
+  
   const customStyles = {
-    	headRow: {
-    		style: {
-    			border: 'none',
-    		},
-    	},
-    	headCells: {
-    		style: {
-    			color: '#202124',
-    			fontSize: '14px',
-    		},
-    	},
-    	rows: {
-    		highlightOnHoverStyle: {
-    			borderBottomColor: '#FFFFFF',
-    			borderRadius: '25px',
-    			outline: '1px solid #FFFFFF',
-          outlineOffset: '-1px',
-    		},
-    	},
-    	pagination: {
-    		style: {
-    			border: 'none',
-  		},
-    	},
-          
-    };
+    headRow: {
+      style: {
+        border: 'none',
+      },
+    },
+    headCells: {
+      style: {
+        color: '!important #FFFFFF',
+        fontSize: '14px',
+      },
+    },
+    rows: {
+      highlightOnHoverStyle: {
+        borderBottomColor: '#FFFFFF',
+        borderRadius: '25px',
+        outline: '1px solid #FFFFFF',
+        outlineOffset: '-1px',
+      },
+    },
+    pagination: {
+      style: {
+        border: 'none',
+      },
+    },
+  };
+  /**
+   * breeds - an array of breeds
+zipCodes - an array of zip codes
+ageMin - a minimum age
+ageMax - a maximum age
+Additionally, the following query parameters can be used to configure the search:
 
+size - the number of results to return; defaults to 25 if omitted
+from - a cursor to be used when paginating results (optional)
+sort - the field by which to sort results, and the direction of the sort; in the format sort=field:[asc|desc]
+Return Value
+Returns an object with the following properties:
+
+resultIds - an array of dog IDs matching your query
+total - the total number of results for the query (not just the current page)
+next - a query to request the next page of results (if one exists)
+prev - a query to request the previous page of results (if one exists)
+   */
   return (
     <DataTable
       title="Dogs"
@@ -136,6 +149,7 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, pa
       paginationServer
       paginationTotalRows={totalPage * 15} // Adjust the page size as needed
       onChangePage={handlePageChange}
+      onChangeRowsPerPage={handlePageRowsChange}
       fixedHeader={true}
       theme="solarized"
       fixedHeaderScrollHeight="600px"
@@ -143,10 +157,8 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, pa
       pointerOnHover={true}
       selectableRowsHighlight={true}
       noHeader={true}
-      striped={true}
       dense={true}
       customStyles={customStyles}
     />
-    
   );
 }

@@ -15,4 +15,15 @@ module.exports = {
     },
   },
   plugins: [],
+  compilerOptions: {
+    baseUrl: '.',
+    paths: {
+      '@components/*': ['./src/components/*'],
+      '@pages/*': ['./src/pages/*'],
+      '@styles/*': ['./src/styles/*'],
+      '@utils/*': ['./src/utils/*'],
+      '@src/*': ['./src/*'],
+    },
+  },
+
 }
