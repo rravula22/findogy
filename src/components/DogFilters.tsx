@@ -1,4 +1,4 @@
-import { DogFilters, LocationFilters } from '@/typings';
+import { DogFilter, LocationFilters } from '@/typings';
 import { fetchDogsByFilters } from '@/utils/middleware';
 import { fetchLocationByZipcodes } from '@/utils/service';
 import stateList from '@/utils/states';
@@ -10,53 +10,43 @@ import useBreeds from './custom_hooks/useBreeds';
 
 type Props = {
   setDogs: (dogs: any) => void;
+  zipCodes: string[];
+  setZipCodes: (zipCodes: string[]) => void;
+  dogFilters: DogFilter;
+  setDogFilters: (dogFilters: DogFilter) => void;
+  handleDogFilterChange: () => void;
 }
-function Filters({setDogs }: Props) {
-  const [dogFilters, setDogFilters] = useState<DogFilters>({
-    breeds: [],
-    ageMin: 0,
-    ageMax: 10,
-  });
+function Filters({setDogs, zipCodes, setZipCodes, dogFilters, setDogFilters, handleDogFilterChange }: Props) {
+
   const [locationFilters, setLocationFilters] = useState<LocationFilters>({
     city: '',
     states: [],
   });
-  const [zipCodes, setZipCodes] = useState<string[]>([]);
+  
   const [zipCodeData, setZipCodeData] = useState<any[]>([]);
   
   let states = stateList();
   const breedList = useBreeds();
-  useEffect(() => {
-    handleDogFilterChange();
-  }, []);
+  
   useEffect(() => {
     fetchLocationByZipcodes(zipCodes)
     .then((res: any) => {
       setZipCodeData(res);
     })
-
   }, [zipCodes]);
+
   const assignZipcodes = async (res:any) => {
     const zips: string[] = res.map((obj: any) => obj.zip_code);
     const uniqueZips = [...new Set(zips)];
     setZipCodes(uniqueZips);
   }
-  const handleDogFilterChange = () => {
-    fetchDogsByFilters(dogFilters, "breeds")
-      .then((res: any) => {
-        if(res && res.length > 0) setDogs(res);
-        assignZipcodes(res);
-      })
-      .catch((err: any) => {
-        console.log(err);
-      });
-  };
+
 
   const handleLocationFilterChange = async () => {
     const res = await fetchDogsByFilters(locationFilters, "zipCodes");
     if(res.results && res.results.length > 0) {
       await assignZipcodes(res.results);
-      const dogs = await fetchDogsByFilters({...dogFilters, zipcodes: zipCodes}, "breeds");
+      const { dogs } = await fetchDogsByFilters({...dogFilters, zipcodes: zipCodes}, "breeds");
       setDogs(dogs);
     }
   };

@@ -62,7 +62,7 @@ interface LocationFilters {
     states: SelectValue;
 }
 
-interface DogFilters {
+interface DogFilter {
     breeds: SelectValue;
     ageMin: number;
     ageMax: number;
@@ -76,5 +76,5 @@ interface ZipCodeData {
     state: string;
     zip_code: string;
   }
-export type { Breed, Dog, DogFilters, DogIdList, Location, LocationFilters, MatchPopupProps, MatchedData, SearchOptions, SearchResults, ZipCodeData }
+export type { Breed, Dog, DogFilter, DogIdList, Location, LocationFilters, MatchPopupProps, MatchedData, SearchOptions, SearchResults, ZipCodeData }
 

@@ -1,33 +1,34 @@
 import { signOut } from 'next-auth/react';
-import { Dog, MatchedData, SearchOptions, SearchResults } from '../typings';
+import { Dog, DogIdList, MatchedData, SearchOptions, SearchResults } from '../typings';
 
 
-const fetchDogs = (options?: SearchOptions): Promise<[]> => {
+const fetchDogs = (options?: SearchOptions): Promise<DogIdList> => {
 
     const optionsObj: any = { ...options, breeds: options?.breeds?.map((breed) => breed?.value)};
     const queryString = buildQueryString(optionsObj);
 
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/dogs/search/${queryString}`, {
+
+    return fetch(`${optionsObj.url ? process.env.NEXT_PUBLIC_API_URL + optionsObj.url : process.env.NEXT_PUBLIC_API_URL + "/dogs/search/" + queryString }`, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => {
-        if (!response.ok && response.status !== 404 ) {
-          signOut({ callbackUrl: '/'});
-          throw new Error('Not Authorized');
-        }
-        return response.json();
-      })
-      .then((data: any) => {
-        return data?.resultIds || [];
-      })
-      .catch((err) => {
-        console.error(err);
-        return [];
-      });
+    .then((response) => {
+      if (!response.ok && response.status !== 404 ) {
+        signOut({ callbackUrl: '/'});
+        throw new Error('Not Authorized');
+      }
+      return response.json();
+    })
+    .then((data: any) => {
+      return data;
+    })
+    .catch((err) => {
+      console.error(err);
+      return { dogs: [], total: 0 };
+    });
   };
   
 const fetchDogsById = (ids: string[]): Promise<Dog[]> => {

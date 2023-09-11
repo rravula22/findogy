@@ -1,20 +1,22 @@
 import { Dog } from "@/typings";
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useMemo } from "react";
 import DataTable, { TableColumn, createTheme } from "react-data-table-component";
 
 interface CustomDataTableProps {
   dogs: Dog[];
   toggleFavorite: (dog: Dog) => void;
   selectedDogs: Dog[];
-  page: number;
-  totalPage: number;
+  currentPage: number;
+  totalRows: number;
   handlePageChange: (page: number) => void;
   handlePageRowsChange: (page: number, totalRows: number) => void;
 }
 
-export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, page, totalPage, handlePageChange, handlePageRowsChange }: CustomDataTableProps) {
-  const columns: TableColumn<Dog>[] = [
+export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, currentPage, totalRows, handlePageChange, handlePageRowsChange }: CustomDataTableProps) {
+  const columns: TableColumn<Dog>[] = useMemo(
+    () => [
     {
       name: "Name",
       sortField: "name",
@@ -75,7 +77,7 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, pa
       sortable: false,
     }
     
-  ];
+  ], [selectedDogs  ]);
   createTheme('solarized', {
     text: {
       primary: '#073642',
@@ -118,27 +120,10 @@ export default function CustomDataTable({ dogs, toggleFavorite, selectedDogs, pa
     pagination: {
       style: {
         border: 'none',
+        backgroundColor: '#ccc',
       },
     },
   };
-  /**
-   * breeds - an array of breeds
-zipCodes - an array of zip codes
-ageMin - a minimum age
-ageMax - a maximum age
-Additionally, the following query parameters can be used to configure the search:
-
-size - the number of results to return; defaults to 25 if omitted
-from - a cursor to be used when paginating results (optional)
-sort - the field by which to sort results, and the direction of the sort; in the format sort=field:[asc|desc]
-Return Value
-Returns an object with the following properties:
-
-resultIds - an array of dog IDs matching your query
-total - the total number of results for the query (not just the current page)
-next - a query to request the next page of results (if one exists)
-prev - a query to request the previous page of results (if one exists)
-   */
   return (
     <DataTable
       title="Dogs"
@@ -147,9 +132,11 @@ prev - a query to request the previous page of results (if one exists)
       responsive
       pagination
       paginationServer
-      paginationTotalRows={totalPage * 15} // Adjust the page size as needed
-      onChangePage={handlePageChange}
+      paginationTotalRows={totalRows}
+      paginationPerPage={15}
+      paginationDefaultPage={currentPage}
       onChangeRowsPerPage={handlePageRowsChange}
+      onChangePage={handlePageChange}
       fixedHeader={true}
       theme="solarized"
       fixedHeaderScrollHeight="600px"
