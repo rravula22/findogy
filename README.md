@@ -39,7 +39,7 @@ Make sure you have Node.js installed on your local machine.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/dog-search-app.git
+git clone https://github.com/yourusername/dog-search-app.git](https://github.com/rravula22/findogy.git
 cd dog-search-app
 ```
 
